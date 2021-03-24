@@ -13,7 +13,7 @@ def get_data(url):
 
 
 def get_article_data():
-    """取得20 * 25篇報導 dict所有"""
+    """取得20 * 25篇報導 dict所有keys"""
     base = 'https://news.ltn.com.tw/ajax/breakingnews/all/'
     page = 1
     article_list = []
@@ -24,21 +24,21 @@ def get_article_data():
             break
         if page > 1:  # page2 -> data: {no:{...}, ...}
             article_list.extend(list(page_data.values()))
-        else:         # page1 -> data: [{...}, {...}, ...]
+        else:  # page1 -> data: [{...}, {...}, ...]
             article_list.extend(page_data)
         page += 1
     return article_list
 
 
-def article_data():
-    """保留要的 no, title, url, tagText"""
+def article_data(*args):
+    """取得要的資料"""
     all_article = get_article_data()
     new_list = []
-    keeps = ['no', 'title', 'url', 'tagText']
     for article in all_article:
-        new_dict = {key: article[key] for key in keeps}
+        new_dict = {key: article[key] for key in args if key in article.keys()}
         new_list.append(new_dict)
     return new_list
+
 
 
 
