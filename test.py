@@ -1,23 +1,24 @@
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
-url = 'https://news.ltn.com.tw/news/life/breakingnews/3469688'
+import json
 
 
-def get_content():
-    response = urlopen(url)
-    html = BeautifulSoup(response)
-    s = ''
-    result = html.find('div', class_='text boxTitle boxText')
-    target = result.find_all('p')
-    for r in target:
-        if len(r.text) != 0:
-            if r.text[-1] == '。':
-                s += r.text
-                print(r.text)
-    return s
+def get_data(url):
+    headers = {
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36'
+    }
+    request = Request(url, headers=headers)
+    with urlopen(request) as response:
+        # data = response.read().decode('utf-8')
+        data = json.load(response)
+    return data.get('data')
 
 
-a = get_content()
-print(a)
 
+base = 'https://news.ltn.com.tw/ajax/breakingnews/all/'
+page_url = base + '26'
+page_data = get_data(page_url)
+print(type(page_data))
+print(page_data)
+print(len(page_data))
 
