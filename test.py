@@ -15,10 +15,15 @@ def get_data(url):
 
 
 
-base = 'https://news.ltn.com.tw/ajax/breakingnews/all/'
-page_url = base + '26'
-page_data = get_data(page_url)
-print(type(page_data))
-print(page_data)
-print(len(page_data))
+# base = 'https://news.ltn.com.tw/ajax/breakingnews/all/'
+# page_url = base + '1'
+# page_data = get_data(page_url)
+# print(type(page_data))
+# print(list(page_data[0].items()))
+
+dic = {'hery0': 10, 'amy': 20}
+for i in dic.keys():
+    print(i)
+    del dic[i]
+    print(dic)
 

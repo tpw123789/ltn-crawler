@@ -12,8 +12,8 @@ def get_data(url):
     return data
 
 
-def get_all_article():
-    """取得20 * 25篇報導的list"""
+def get_article_data():
+    """取得20 * 25篇報導 dict所有"""
     base = 'https://news.ltn.com.tw/ajax/breakingnews/all/'
     page = 1
     article_list = []
@@ -28,4 +28,17 @@ def get_all_article():
             article_list.extend(page_data)
         page += 1
     return article_list
+
+
+def article_data():
+    """保留要的 no, title, url, tagText"""
+    all_article = get_article_data()
+    new_list = []
+    keeps = ['no', 'title', 'url', 'tagText']
+    for article in all_article:
+        new_dict = {key: article[key] for key in keeps}
+        new_list.append(new_dict)
+    return new_list
+
+
 
